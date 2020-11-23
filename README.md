@@ -1,3 +1,3 @@
-# SOLIDforpython
+# SOLID
 
-A short technical paper on solid programming concept
+A short technical paper on SOLID design principle.
