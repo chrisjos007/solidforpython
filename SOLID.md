@@ -13,3 +13,7 @@ At times, when we are delving into new projects, we may often face the prospect 
    4) **I**nterface Segregation Principle
    5) **D**ependancy Inversion Principle
 
+## why SOLID?
+
+### Rotting design
+While writing a code, there are many small flaws we oversee, and these accumulate to rot our program and over time, any efforts at simple changes becomes so tiring and unfruitful. We can identify whether our system is rotting by analyzing its rigidity, fragility, mobility, and viscosity.
