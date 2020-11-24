@@ -14,11 +14,38 @@ At times, when we are delving into new projects, we may often face the prospect 
    5) **D**ependancy Inversion Principle
 
 ## Why SOLID? - The rotting design
-While writing a code, there are many small flaws we oversee, and these accumulate to rot our program and over time, any efforts at simple changes can prove much tiring and unfruitful. We can identify whether our system is rotting by analyzing its rigidity, fragility, mobility, and viscosity.
+While writing a code, there are many small flaws that we oversee, and these accumulate to rot our program and over time, any efforts at simple changes can prove much tiring and unfruitful. We can identify whether our system is rotting by analyzing its rigidity, fragility, mobility, and viscosity.
 
 ## Design Concepts
 
 ### 1. Single Responsibility Principle
   *A class should have a single responsibility and a single reason to change*
 
+When we are required to add functionality to a program, it is wrong to append everything into existing classes. Rather, each functionalty needs to be wrapped up into separate classes whose functionality should be the sole reason for any modifications in the class.
 #### Example
+      class student:
+          def __init__(self, name):
+            self.name = name
+          
+          def savepersonalinfo(self, info):
+            # students personal info
+
+          def savescore(self, scores):
+            # student scores
+The above example is a clear violation of the SRP principle as the student class is having the responsibility of storing the student's personal information as well as academic information. So any attempts at modification in the academic database can have adverse effects on the personal information and any classes that use it. Now a downside to this is the requirement of a large number of interdependent classes which can be resolved by executing the *Facade pattern* which corresponds to wrapping up similar items to hide the implementation details.
+
+### 2.Open-Closed Principle
+*Software entities should be open for extension, but closed for modification*
+
+Now consider the example below:
+
+      class academic:
+          def __init__ (self, student, score):
+              self.student = student
+              self.scores = scores
+          
+          def scorenorm(self, difficulty):
+              if difficulty == 'normal':
+                  return self.scores+3
+              elif difficulty == 'hard':
+                  return self.scores+6
