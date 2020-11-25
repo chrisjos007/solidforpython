@@ -187,3 +187,6 @@ Abstractions should not depend on details, rather details should depend on abstr
 
 We can see that all the principles leading up to this one are wrapping up on the concept of non-dependency on detail. It is an essential concept in the implementation of reusable frameworks. This principle is an implementation of decoupling as tightly coupling high-level modules or classes to low-level modules or classes can cause a serious pushback if any alterations are required in the low-level modules which are typically undesirable.
 
+## Conclusion
+
+SOLID defines the way a system needs to be designed. Refactoring is not intended to make the code simpler or short, it is implemented to ensure scalability, flexibility, extensibility, and maintainability. A developer working on a refactored code can easily add functionalities that adhere to the normal functioning of the code without driving everything into chaos. It is important to note that writing good code is always based on the simple notion of the **DRY principle**. Following the SOLID and DRY principle does not make one a perfect programmer, but it can help them reach two steps closer to that goal.
