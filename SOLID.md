@@ -22,7 +22,7 @@ While writing a code, there are many small flaws that we oversee, and these accu
   *A class should have a single responsibility and a single reason to change*
 
 When we are required to add functionality to a program, it is wrong to append everything into existing classes. Rather, each functionality needs to be wrapped up into separate classes whose functionality should be the sole reason for any modifications in the class. Excessive coupling needs to be avoided as it makes introducing changes difficult.
-#### Example
+##### Example
       class student:
           def __init__(self, name):
             self.name = name
@@ -131,4 +131,40 @@ Consider the case when the science exam marks are normalized and commerce marks 
                 pass
 In this case, the child classes are interchangeable with the parent class. The LSP is essential to Object-Oriented Design as it emphasizes polymorphism. Child classes derived from a parent should have attributes that can replace the parent class which has been implemented here.
 
-### **4.Interface Segregation Principle**
+### **4.Interface Segregation Principle (ISP)**
+*No clients should be forced to depend upon interfaces that they do not use*
+
+Make interfaces that are client-specific that should do their specific jobs. Simple light interfaces are preferable over "fat" interfaces. This can be seen as an extension of the Single Responsibility Principle. Consider the example of an interface that finds the normalized scores of subjects.
+
+Example
+
+        class norm:
+            def engnorm(self):
+              """normalize english scores"""
+
+            def mathnorm(self)
+              """ normalize maths scores """
+
+            def sciencenorm(self):
+              """normalize science scores"""
+
+Now each subject class that calculates the normalized scores will be having methods for the other subjects and if we add another subject, then everything will end up as a mess. So we move on to solving this dilemma using the ISP concept by segregating our actions to separate interfaces as shown below.
+
+        class  norm:
+            def normalize(self):
+                """normalize scores"""
+
+
+        class english(norm):
+            def normalize(self):
+                pass
+
+
+        class science(norm):
+            def normalize(self):
+                pass
+
+
+        class math(norm):
+            def normalize(self):
+                pass
