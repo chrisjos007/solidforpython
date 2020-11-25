@@ -52,7 +52,8 @@ A program that follows the open-close principle can have additional features app
             self.scores = scores
         
         def scorenorm(self, difficulty):
-          """ norm
+          """ normalise student score
+          based on difficulty """
             if difficulty == 'normal':
                 return self.scores+3
             elif difficulty == 'hard':
