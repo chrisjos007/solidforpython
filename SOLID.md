@@ -34,7 +34,8 @@ When we are required to add functionality to a program, it is wrong to append ev
             # student scores
 The above example is a clear violation of the SRP principle as the student class is having the responsibility of storing the student's personal information as well as academic information. So any attempts at modification in the academic database can have adverse effects on the personal information and any classes that use it. A simple solution to this is splitting up each task into separate classes.
 
-Now a downside to this is the requirement of a large number of interdependent classes which can be quite messy. It can be resolved by executing the *Facade pattern* which corresponds to wrapping up similar items to hide the implementation details.
+Now a downside to this is the requirement of a large number of interdependent classes that can be quite messy. It can be resolved by executing the *Facade pattern* that corresponds to wrapping up similar items to hide the implementation details.
+
 
 ### **2.Open-Closed Principle (OCP)**
 *Software entities should be open for extension, but closed for modification*
@@ -64,10 +65,12 @@ Now for the above problem, assume that the teacher has decided to give additiona
                 return self.scores+3
 
         class normhard(academic):
+          """normalizes for hard difficulty"""
             def scorenorm(self):
                 return super().scorenorm()+3
 
         class normextreme(normhard):
+          """normalizes for extreme difficluty"""
             def scorenorm(self):
                 return super().scorenorm()+3
 
@@ -75,7 +78,7 @@ Now for the above problem, assume that the teacher has decided to give additiona
 ### **3.Liskov Substitution Principle (LSP)**
 *If S is a subtype of T, then objects of T may be replaced with objects of type S without affecting the logic of the program*
 
-The credit for this principle goes to Barbar Liskov. Simply put, a subclass must be substitutable in place of its superclass without affecting the correctness of the program. Now this may come off as being confusing to grasp but we can analyze the example below and try to understand it.
+The credit for this principle goes to Barbar Liskov. Simply put, a subclass must be substitutable in place of its superclass without affecting the correctness of the program. Now, this may come off as being confusing to grasp, but we can analyze the example below and try to understand it.
 
 ##### LSP fail
         class academics:
@@ -136,12 +139,12 @@ Consider the case when the science exam marks are normalized and commerce marks 
             """A Subject not requiring normalization"""
             def getscores(self):               
                 pass
-In this case, the child classes are interchangeable with the parent class. The LSP is essential to Object-Oriented Design as it emphasizes polymorphism. Child classes derived from a parent should have attributes that can replace the parent class which has been implemented here.
+In this case, the child classes are interchangeable with the parent class. The LSP is essential to Object-Oriented Design as it emphasizes polymorphism. Child classes derived from a parent should have attributes that can replace the parent class that has been implemented here.
 
 ### **4.Interface Segregation Principle (ISP)**
 *No clients should be forced to depend upon interfaces that they do not use*
 
-Make interfaces that are client-specific that should do their specific jobs. Simple light interfaces are preferable over "fat" interfaces. This can be seen as an extension of the Single Responsibility Principle. Consider the example of an interface that finds the normalized scores of subjects.
+Make client-specific interfaces that should do their specific jobs. Simple light interfaces are preferable over "fat" interfaces. This can be seen as an extension of the Single Responsibility Principle. Consider the example of an interface that finds the normalized scores of subjects.
 
 ##### ISP fail
 
@@ -155,7 +158,7 @@ Make interfaces that are client-specific that should do their specific jobs. Sim
             def sciencenorm(self):
               """normalize science scores"""
 
-Now each subject class that calculates the normalized scores will be having methods for the other subjects and if we add another subject, then everything will end up as a mess. So we move on to solving this dilemma using the ISP concept by segregating our actions to separate interfaces as shown below.
+Now each subject class that calculates the normalized scores will be having methods for the other subjects and as we add more subjects, everything will end up crashing down. So we move on to solving this dilemma using the ISP concept by segregating our actions to separate interfaces as shown below.
 
 ##### refactored
         class  norm:
@@ -185,7 +188,7 @@ Even though python does not have interfaces, it is of importance to python devel
 *High-level modules should not depend on low-level modules. Both should depend on abstractions.
 Abstractions should not depend on details, rather details should depend on abstractions.*
 
-We can see that all the principles leading up to this one are wrapping up on the concept of non-dependency on detail. It is an essential concept in the implementation of reusable frameworks. This principle is an implementation of decoupling as tightly coupling high-level modules or classes to low-level modules or classes can cause a serious pushback if any alterations are required in the low-level modules which are typically undesirable.
+We can see that all the principles leading up to this one are wrapping up on the concept of non-dependency on detail. It is an essential concept in the implementation of reusable frameworks. This principle is an implementation of decoupling as tightly coupling high-level modules or classes to low-level modules or classes can cause a serious pushback if any alterations are required in the low-level modules that are typically undesirable.
 
 ## Conclusion
 
