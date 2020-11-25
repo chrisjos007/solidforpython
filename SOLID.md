@@ -43,19 +43,23 @@ Now a downside to this is the requirement of a large number of interdependent cl
 A program that follows the open-close principle can have additional features applied to it by extending the existing classes rather than modifying them. Now consider the example below:
 
 ##### OCP fail
+      ```python
       class academic:
           def __init__ (self, student, score):
               self.student = student
               self.scores = scores
           
           def scorenorm(self, difficulty):
+            """ norm
               if difficulty == 'normal':
                   return self.scores+3
               elif difficulty == 'hard':
                   return self.scores+6
+      ```
 Now for the above problem, assume that the teacher has decided to give additional marks for "very hard" difficulty. Then we have to add additional else cases that modify the base class which is a clear violation of OCP. So by applying OCP, we can rewrite the base class.
 
 ##### Refactored
+        ```python
         class academic:
             def __init__ (self, student, score):
                 ​self.student = student
@@ -73,6 +77,7 @@ Now for the above problem, assume that the teacher has decided to give additiona
           """normalizes for extreme difficluty"""
             def scorenorm(self):
                 return super().scorenorm()+3
+        ```
 
 
 ### **3.Liskov Substitution Principle (LSP)**
@@ -81,6 +86,7 @@ Now for the above problem, assume that the teacher has decided to give additiona
 The credit for this principle goes to Barbar Liskov. Simply put, a subclass must be substitutable in place of its superclass without affecting the correctness of the program. Now, this may come off as being confusing to grasp, but we can analyze the example below and try to understand it.
 
 ##### LSP fail
+        ```python
         class academics:
             def __init__ (self, name, details):
                 self.name = name
@@ -101,9 +107,11 @@ The credit for this principle goes to Barbar Liskov. Simply put, a subclass must
         class commerce(academics):
             def normscores(self):
                 pass
+        ```
 Consider the case when the science exam marks are normalized and commerce marks are not. Then this code violates LSP as the commerce class cannot be substituted in place of its parent class. Hence this code requires refactoring as we can see below:
 
 ##### Refactored
+        ```python
         class academics:
             """ student's academic details """
             def __init__ (self, name, details):
@@ -139,6 +147,7 @@ Consider the case when the science exam marks are normalized and commerce marks 
             """A Subject not requiring normalization"""
             def getscores(self):               
                 pass
+        ```
 In this case, the child classes are interchangeable with the parent class. The LSP is essential to Object-Oriented Design as it emphasizes polymorphism. Child classes derived from a parent should have attributes that can replace the parent class that has been implemented here.
 
 ### **4.Interface Segregation Principle (ISP)**
@@ -148,6 +157,7 @@ Make client-specific interfaces that should do their specific jobs. Simple light
 
 ##### ISP fail
 
+        ```python
         class norm:
             def engnorm(self):
               """normalize english scores"""
@@ -157,10 +167,12 @@ Make client-specific interfaces that should do their specific jobs. Simple light
 
             def sciencenorm(self):
               """normalize science scores"""
+        ```
 
 Now each subject class that calculates the normalized scores will be having methods for the other subjects and as we add more subjects, everything will end up crashing down. So we move on to solving this dilemma using the ISP concept by segregating our actions to separate interfaces as shown below.
 
 ##### Refactored
+        ```python
         class  norm:
             def normalize(self):
                 """normalize scores"""
@@ -179,6 +191,7 @@ Now each subject class that calculates the normalized scores will be having meth
         class math(norm):
             def normalize(self):
                 pass
+        ```
 
 Even though python does not have interfaces, it is of importance to python developers as it can be used to add simple functionalities that can be implemented easily as opposed to the large unnecessary functionalities of fat interfaces.
 
