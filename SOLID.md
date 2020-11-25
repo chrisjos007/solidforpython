@@ -55,7 +55,7 @@ A program that follows the open-close principle can have additional features app
                   return self.scores+6
 Now for the above problem, assume that the teacher has decided to give additional marks for "very hard" difficulty. Then we have to add additional else cases that modify the base class which is a clear violation of OCP. So by applying OCP, we can rewrite the base class.
 
-##### refactored
+##### Refactored
         class academic:
             def __init__ (self, student, score):
                 ​self.student = student
@@ -103,7 +103,7 @@ The credit for this principle goes to Barbar Liskov. Simply put, a subclass must
                 pass
 Consider the case when the science exam marks are normalized and commerce marks are not. Then this code violates LSP as the commerce class cannot be substituted in place of its parent class. Hence this code requires refactoring as we can see below:
 
-##### refactored
+##### Refactored
         class academics:
             """ student's academic details """
             def __init__ (self, name, details):
@@ -160,7 +160,7 @@ Make client-specific interfaces that should do their specific jobs. Simple light
 
 Now each subject class that calculates the normalized scores will be having methods for the other subjects and as we add more subjects, everything will end up crashing down. So we move on to solving this dilemma using the ISP concept by segregating our actions to separate interfaces as shown below.
 
-##### refactored
+##### Refactored
         class  norm:
             def normalize(self):
                 """normalize scores"""
@@ -193,3 +193,16 @@ We can see that all the principles leading up to this one are wrapping up on the
 ## Conclusion
 
 SOLID defines the way a system needs to be designed. Refactoring is not intended to make the code simpler or short, it is implemented to ensure scalability, flexibility, extensibility, and maintainability. A developer working on a refactored code can easily add functionalities that adhere to the normal functioning of the code without driving everything into chaos. It is important to note that writing good code is always based on the simple notion of the **DRY principle**. Following the SOLID and DRY principle does not make one a perfect programmer, but it can help them reach two steps closer to that goal.
+
+## References
+
+* [SOLID principles in software architecture and introduction to RESM concept in OOP](https://www.researchgate.net/publication/273451390_SOLID_Principles_in_Software_Architecture_and_Introduction_to_RESM_Concept_in_OOP)
+* [SOLID wiki](https://en.wikipedia.org/wiki/SOLID)
+* [SOLID principles applied to a dynamic programming language](https://www.researchgate.net/publication/323935872_SOLID_Python_SOLID_principles_applied_to_a_dynamic_programming_language)
+* [A pythonic guide to solid design principles](https://dev.to/ezzy1337/a-pythonic-guide-to-solid-design-principles-4c8i)
+* [Refactoring code to meet solid design principles](https://info.obsglobal.com/blog/2014/03/refactoring-code-to-meet-solid-design-principles-part-2)
+* [Refactoring from trash to solid](https://medium.com/swlh/refactoring-from-trash-to-solid-74b10005ccd3)
+* [Design patterns a quick guide to facade pattern](https://medium.com/@andreaspoyias/design-patterns-a-quick-guide-to-facade-pattern-16e3d2f1bfb6)
+* [Coupling wiki](https://en.wikipedia.org/wiki/Coupling_(computer_programming))
+* [geeks for geeks](https://www.geeksforgeeks.org/solid-principle-in-programming-understand-with-real-life-examples/)
+* [LSP youtube](https://www.youtube.com/watch?v=Jecou7B3nhc)
