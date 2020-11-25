@@ -2,7 +2,7 @@
 
 ## Abstract
 
-At times, when we are delving into new projects, we may often face the prospect of being accountable for the clumsy code we write. It is in no one's intention to write poot code, but without proper control and practice, we may get subjected to the chaos and end up with an ineptly written code. This is where the **SOLID Design Principles** come into action. In this paper, I will be briefly going through the SOLID design concept with a few code samples.
+At times, when we are delving into new projects, we may often face the prospect of being accountable for the clumsy code we write. It is in no one's intention to write poor code, but without proper control and practice, we may get subjected to the chaos and end up with an ineptly written code. This is where the **SOLID Design Principles** come into action. In this paper, I will be briefly going through the SOLID design concept with a few code samples.
 
 ## Introduction to SOLID
 
@@ -18,10 +18,10 @@ While writing a code, there are many small flaws that we oversee, and these accu
 
 ## Design Concepts
 
-### 1. Single Responsibility Principle
+### **1. Single Responsibility Principle (SRP)**
   *A class should have a single responsibility and a single reason to change*
 
-When we are required to add functionality to a program, it is wrong to append everything into existing classes. Rather, each functionalty needs to be wrapped up into separate classes whose functionality should be the sole reason for any modifications in the class.
+When we are required to add functionality to a program, it is wrong to append everything into existing classes. Rather, each functionality needs to be wrapped up into separate classes whose functionality should be the sole reason for any modifications in the class. Excessive coupling needs to be avoided as it makes introducing changes difficult.
 #### Example
       class student:
           def __init__(self, name):
@@ -32,12 +32,14 @@ When we are required to add functionality to a program, it is wrong to append ev
 
           def savescore(self, scores):
             # student scores
-The above example is a clear violation of the SRP principle as the student class is having the responsibility of storing the student's personal information as well as academic information. So any attempts at modification in the academic database can have adverse effects on the personal information and any classes that use it. Now a downside to this is the requirement of a large number of interdependent classes which can be resolved by executing the *Facade pattern* which corresponds to wrapping up similar items to hide the implementation details.
+The above example is a clear violation of the SRP principle as the student class is having the responsibility of storing the student's personal information as well as academic information. So any attempts at modification in the academic database can have adverse effects on the personal information and any classes that use it. A simple solution to this is splitting up each task into separate classes.
 
-### 2.Open-Closed Principle
+Now a downside to this is the requirement of a large number of interdependent classes which can be quite messy. It can be resolved by executing the *Facade pattern* which corresponds to wrapping up similar items to hide the implementation details.
+
+### **2.Open-Closed Principle (OCP)**
 *Software entities should be open for extension, but closed for modification*
 
-Now consider the example below:
+A program that follows the open-close principle can have additional features applied to it by extending the existing classes rather than modifying them. Now consider the example below:
 
       class academic:
           def __init__ (self, student, score):
@@ -49,3 +51,84 @@ Now consider the example below:
                   return self.scores+3
               elif difficulty == 'hard':
                   return self.scores+6
+Now for the above problem, assume that the teacher has decided to give additional marks for "very hard" difficulty. Then we have to add additional else cases that modify the base class which is a clear violation of OCP. So by applying OCP, we can rewrite the base class.
+
+        class academic:
+            def __init__ (self, student, score):
+                ​self.student = student
+                ​self.scores = scores
+
+            def scorenorm(self):
+                return self.scores+3
+
+        class normhard(academic):
+            def scorenorm(self):
+                return super().scorenorm()+3
+
+        class normextreme(normhard):
+            def scorenorm(self):
+                return super().scorenorm()+3
+
+
+### **3.Liskov Substitution Principle (LSP)**
+*If S is a subtype of T, then objects of T may be replaced with objects of type S without affecting the logic of the program*
+
+The credit for this principle goes to Barbar Liskov. Simply put, a subclass must be substitutable in place of its superclass without affecting the correctness of the program. Now this may come off as being confusing to grasp but we can analyze the example below and try to understand it.
+
+        class academics:
+            def __init__ (self, name, details):
+                self.name = name
+                self.address = details
+
+            def scores(self):
+                # student scores
+
+            def normscores(self):
+                # normalize student scores
+
+
+        class science(academics):
+            def normscores(self):
+                pass
+
+
+        class commerce(academics):
+            def normscores(self):
+                pass
+Consider the case when the science exam marks are normalized and commerce marks are not. Then this code violates LSP as the commerce class cannot be substituted in place of its parent class. Hence this code requires refactoring as we can see below:
+
+        class academics:
+            """ student's academic details """
+            def __init__ (self, name, details):
+                """ store details """
+                self.name = name
+                self.address = details
+
+            def savescores(self):
+                # student scores
+
+        class needsnorm(academics):
+            """ calculates normalized scores """
+            def normscores(self):
+                # normalize student scores
+
+            def getscores(self):
+                # returns scores
+
+        class nonorms(academics):
+            def getscores(self):
+                # returns scores
+
+
+        class science(needsnorm):
+            """A subject that requires normalization"""
+            def getscores(self):
+                pass
+
+        class commerce(nonorms):
+            """A Subject not requiring normalization"""
+            def getscores(self):               
+                pass
+In this case, the child classes are interchangeable with the parent class. The LSP is essential to Object-Oriented Design as it emphasizes polymorphism. Child classes derived from a parent should have attributes that can replace the parent class which has been implemented here.
+
+### **4.Interface Segregation Principle**
